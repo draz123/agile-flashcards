@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import {View, Text, Button, TextInput} from "react-native";
+import {View, Alert, Text, Button, TextInput} from "react-native";
 import styles from "../AppStyles";
 
 export default class AddNewWordView extends Component {
@@ -10,6 +10,23 @@ export default class AddNewWordView extends Component {
             word: '',
             description: ''
         };
+    }
+
+    addWordToDictionary(){
+        Alert.alert("Word with decription added");
+        fetch('http://192.168.0.100:8080/dictionary', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: '0',
+                word: this.state.word,
+                description: this.state.description,
+                operation: "add"
+            })
+        })
     }
 
     render() {
@@ -38,7 +55,7 @@ export default class AddNewWordView extends Component {
                 />
 
                 <Button
-                    onPress={() => alert("Add word clicked")}
+                    onPress={() => this.addWordToDictionary()}
                     title="Add word"
                     accessibilityLabel="See an informative alert"
                 />
