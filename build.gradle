@@ -32,6 +32,3 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1' //version required
 }
-
-
-task stage(dependsOn: ['clean', 'build'])

@@ -24,7 +24,7 @@ public class DatabaseEndpoint {
     @Autowired
     ApplicationContext ctx;
 
-    DictionaryDAO repository;
+    private  DictionaryDAO repository;
 
     @RequestMapping(value = "/dictionary", method = RequestMethod.POST)
     public Dictionary operateOnDictionary(@RequestBody Command command) {
@@ -36,6 +36,11 @@ public class DatabaseEndpoint {
         } else if (command.getOperation().equals("delete")) {
             repository.delete(command.getId());
             return null;
+        } else if (command.getOperation().equals("edit")) {
+            Long id = repository.findByWord(command.getWord()).get(0).getId();
+            repository.delete(id);
+            repository.save(new Dictionary(command.getWord(), command.getDescription()));
+            return null;
         } else {
             return null;
         }
@@ -44,7 +49,7 @@ public class DatabaseEndpoint {
 
     @RequestMapping(value = "/dictionary", method = RequestMethod.GET)
     public @ResponseBody
-    List<Dictionary> getDictionary() {
+    List<Dictionary> getDictionary() throws InterruptedException {
         if (repository == null) {
             repository = (DictionaryDAO) ctx.getAutowireCapableBeanFactory().getBean("dictionaryDAO");
         }

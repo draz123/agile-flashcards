@@ -22,16 +22,11 @@ export default StyleSheet.create({
         color: '#F44336',
         fontSize: 40,
         fontWeight: 'bold',
-        paddingBottom:120,
-        paddingTop:60
+        paddingBottom:20,
+        paddingTop:20
     },
-    dictionaryList: {
-        flex: 0,
-        borderWidth: 2,
-    },
+
     dictionaryListContainer: {
-        alignItems: 'center',
-        justifyContent: 'center'
 
     },
 
@@ -42,12 +37,17 @@ export default StyleSheet.create({
 
     backButton: {
         flex:0,
-        position: 'absolute',
         color: 'red',
-        bottom: 0,
+        position:'absolute',
+        bottom: 50,
         left: 0,
         fontSize: 20,
 
+    },
+
+    quizWord: {
+        textAlign: 'center',
+        fontSize: 28,
     },
 
     mainMenuButton: {
@@ -60,6 +60,40 @@ export default StyleSheet.create({
         },
         shadowRadius: 10,
         shadowOpacity: 0.25
-    }
+    },
 
+    container3: {
+        flex: 1,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "black"
+    },
+
+    textGroup: {
+        marginLeft: 12,
+    },
+
+    wordText: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    descriptionText: {
+
+        fontSize: 14,
+        fontStyle: 'italic',
+    },
+    icon: {
+        height: 25,
+        width: 25,
+        margin: 6,
+    },
+
+    iconsGroup: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+    },
 });

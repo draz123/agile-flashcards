@@ -25,7 +25,7 @@ public class TranslatorEndpoint {
         Translation translation = restTemplate.getForObject(URL + "?key=" + API_KEY + "&text=" + input + "&lang=en-pl", Translation.class);
         log.info(translation.toString());
 
-        return new Command(input,translation.getText().get(0).toString());
+        return new Command(input,translation.getText().get(0));
     }
 
 }
