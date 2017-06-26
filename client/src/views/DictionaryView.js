@@ -28,7 +28,7 @@ export default class DictionaryView extends Component {
 
     getDictionary() {
         console.log("Start of getDictionary execution");
-        var url = 'http://192.168.0.102:8080/dictionary';
+        var url = 'http://192.168.0.100:8080/dictionary';
         fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -47,14 +47,12 @@ export default class DictionaryView extends Component {
         const {navigate} = this.props.navigation;
         const dictionaryList = this.dataSource.cloneWithRows(this.state.jsonData);
         return (
-
-            <View>
+            <View style={styles.container}>
                 <ListView contentContainerStyle={styles.dictionaryListContainer}
                           dataSource={dictionaryList}
                           renderRow={(rowData) => <Row data={rowData} refreshList={this.getDictionary}
                                                        editRow={this.editRow}/>}
                           renderSeparator={(sectionId, rowId) => <View key={rowId} style={rowStyles.separator}/>}
-                          renderHeader={() => <Header />}
                           automaticallyAdjustContentInsets={false}
                 />
             </View>

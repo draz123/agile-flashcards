@@ -31,6 +31,7 @@ public class QuizEndpoint {
     @RequestMapping(value = "/quiz", method = RequestMethod.GET)
     public @ResponseBody
     Dictionary startQuiz() {
+        successfulRecords = new ArrayList<>();
         if (repository == null) {
             repository = (DictionaryDAO) ctx.getAutowireCapableBeanFactory().getBean("dictionaryDAO");
         }
@@ -72,18 +73,25 @@ public class QuizEndpoint {
             }
         }
         if (itemToDelete >= 0) {
+            successfulRecords.add(dictionary.get(itemToDelete));
             dictionary.remove(itemToDelete);
         }
         Dictionary result = generateWord(statusFlag);
-        while (result.getWord() == dict.getWord()) {
+        while (result.getWord().equals(dict.getWord())) {
             result = generateWord(statusFlag);
         }
         return result;
     }
 
+    private List<Dictionary> successfulRecords;
+
     @RequestMapping(value = "/summary", method = RequestMethod.GET)
-    public int getSummary() {
-        return initialQuizSize;
+    public String getSummary() {
+        String result = "You have learned " + successfulRecords.size() + " of " + initialQuizSize + " words:\n";
+        for (Dictionary dict : successfulRecords) {
+            result += dict.getWord() + " - " + dict.getDescription() + "\n";
+        }
+        return result;
     }
 
 }

@@ -13,28 +13,28 @@ export default class MenuView extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.titleText}>Agile fleshcards</Text>
-                <View style={styles.container2}>
-                    <View style={styles.mainMenuButton}>
-                        <Button color="#F44336"
-                                onPress={() => navigate('AddNewWordView')}
-                                title="Add new word"
-                                accessibilityLabel="See an informative alert"
+
+                    <View style={styles.mainMenuButtonView}>
+                        <Button
+                            onPress={() => navigate('AddNewWordView')}
+                            title="Add new word"
+                            accessibilityLabel="See an informative alert"
                         />
                     </View>
-                    <View style={styles.mainMenuButton}>
-                        <Button color="#F44336"
-                                onPress={() => navigate('QuizView')}
-                                title="Quiz"
-                                accessibilityLabel="See an informative alert"
+                    <View style={styles.mainMenuButtonView}>
+                        <Button
+                            onPress={() => navigate('QuizView')}
+                            title="Quiz"
+                            accessibilityLabel="See an informative alert"
                         />
                     </View>
-                    <View style={styles.mainMenuButton}>
-                        <Button color="#F44336"
-                                onPress={() => navigate('DictionaryView')}
-                                title="Dictionary"
-                                accessibilityLabel="See an informative alert"
+                    <View style={styles.mainMenuButtonView}>
+                        <Button
+                            onPress={() => navigate('DictionaryView')}
+                            title="Dictionary"
+                            accessibilityLabel="See an informative alert"
                         />
-                    </View>
+
                 </View>
             </View>
 

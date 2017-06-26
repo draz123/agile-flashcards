@@ -5,29 +5,23 @@ import {StyleSheet} from 'react-native';
 
 
 export default StyleSheet.create({
+
+
     container: {
+
         flex: 1,
         justifyContent: 'center',
-        backgroundColor:'#FFFFFF'
-    },
-    container2: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor:'#FFCDD2'
+        backgroundColor: '#1D7CA7'
     },
     titleText: {
         justifyContent: 'center',
         top: 0,
         textAlign: 'center',
-        color: '#F44336',
+        color: '#EDF2F4',
         fontSize: 40,
         fontWeight: 'bold',
-        paddingBottom:20,
-        paddingTop:20
-    },
-
-    dictionaryListContainer: {
-
+        paddingBottom: 250,
+        paddingTop: 20
     },
 
     wordDescription: {
@@ -35,25 +29,34 @@ export default StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    backButton: {
-        flex:0,
-        color: 'red',
-        position:'absolute',
-        bottom: 50,
-        left: 0,
-        fontSize: 20,
-
-    },
 
     quizWord: {
+        color: 'white',
         textAlign: 'center',
         fontSize: 28,
     },
 
-    mainMenuButton: {
+    editWord: {
+        textAlign: 'center',
+        color:'white',
+        fontSize: 28,
+    },
+
+    editWordText: {
+        justifyContent: 'center',
+        top: 0,
+        textAlign: 'center',
+        color: '#EDF2F4',
+        fontSize: 40,
+        fontWeight: 'bold',
+        paddingBottom: 20,
+        paddingTop: 20
+    },
+
+    mainMenuButtonView: {
         borderRadius: 10,
         padding: 10,
-        shadowColor: '#000000',
+        color: '#8D99AE',
         shadowOffset: {
             width: 0,
             height: 3
@@ -62,14 +65,55 @@ export default StyleSheet.create({
         shadowOpacity: 0.25
     },
 
-    container3: {
+    addNewWordViewContainer: {
+        justifyContent: 'center',
+        top: 0,
+        textAlign: 'center',
+        paddingBottom: 250,
+    },
+
+    editWordInfo:{
+        padding:20,
+        paddingBottom:40,
+        color:'white',
+        textAlign: 'center',
+    },
+
+    textInput: {
+        margin:10,
+        color:'white',
+        height: 50,
+        padding: 10,
+    },
+    editIputViewContainer:{
+        paddingBottom:50,
+    },
+
+    editInputText : {
+        margin:10,
+        borderColor: '#1D7CA7',
+        padding: 10,
+        paddingBottom:30,
+        borderWidth: 1
+    },
+    dictionaryListContainer:{
+        // color:'white',
+    },
+
+    defaultHeading:{
+        color:'white',
+        textAlign: 'center',
+    },
+
+    rowContainer: {
         flex: 1,
         padding: 10,
+        margin:5,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: "black"
+        borderColor: "#2D8DB8"
     },
 
     textGroup: {
@@ -78,10 +122,11 @@ export default StyleSheet.create({
 
     wordText: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:'white'
     },
     descriptionText: {
-
+        color:'white',
         fontSize: 14,
         fontStyle: 'italic',
     },

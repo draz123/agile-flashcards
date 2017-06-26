@@ -33,7 +33,7 @@ export default class Row extends Component {
 
     deleteRow() {
         console.log("Start of deleteRow execution");
-        fetch('http://192.168.0.102:8080/dictionary', {
+        fetch('http://192.168.0.100:8080/dictionary', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -45,7 +45,7 @@ export default class Row extends Component {
                 description: this.props.data.description,
                 operation: "delete"
             })
-        }).then(()=>this.props.refreshList());
+        }).then(() => this.props.refreshList());
 
         console.log("End of deleteRow execution");
 
@@ -54,7 +54,7 @@ export default class Row extends Component {
 
     updateRow() {
         Alert.alert("Done");
-        fetch('http://192.168.0.102:8080/dictionary', {
+        fetch('http://192.168.0.100:8080/dictionary', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +66,7 @@ export default class Row extends Component {
                 description: this.state.description,
                 operation: "edit"
             })
-        }).then(()=>this.props.refreshList());
+        }).then(() => this.props.refreshList());
         this.refs['description'].setNativeProps({text: ''});
         this.setState({modalVisible: false})
     }
@@ -77,7 +77,7 @@ export default class Row extends Component {
 
     render() {
         return (
-            <View style={styles.container3}>
+            <View style={styles.rowContainer}>
                 <View style={styles.textGroup}>
                     <Text style={styles.wordText}>
                         {`${this.props.data.word} \n `}
@@ -90,13 +90,13 @@ export default class Row extends Component {
                     <TouchableHighlight onPress={this.editRow}>
                         <Image
                             style={styles.icon}
-                            source={require('./editIcon.png')}
+                            source={require('./editIconWhite.png')}
                         />
                     </TouchableHighlight>
                     <TouchableHighlight onPress={this.deleteRow}>
                         <Image
                             style={styles.icon}
-                            source={require('./removeIcon.png')}
+                            source={require('./removeIconWhite.png')}
                         />
                     </TouchableHighlight>
                 </View>
@@ -108,27 +108,32 @@ export default class Row extends Component {
                         alert("Modal has been closed.")
                     }}
                 >
-                    <View style={styles.modal}>
-                        <Text>Edit word</Text>
-                        <Text>{this.props.data.word} </Text>
-                        <Text>Change description from {this.props.data.description} to</Text>
-                        <TextInput
-                            ref={'description'}
-                            style={{height: 50, borderColor: 'gray', borderWidth: 1}}
-                            onChangeText={(description) => this.setState({description})}
-                            value={this.state.description}
-                            multiline={true}
-                        />
-                        <Button color="#F44336"
+                    <View style={styles.container}>
+                        <Text style={styles.editWordText}>Edit word</Text>
+                        <Text style={styles.editWord}>{this.props.data.word} </Text>
+                        <Text style={styles.editWordInfo}>Change description from {this.props.data.description} to</Text>
+                        <View style={styles.editIputViewContainer}>
+                            <TextInput style={styles.editInputText}
+                                       ref={'description'}
+                                       onChangeText={(description) => this.setState({description})}
+                                       value={this.state.description}
+                                       multiline={true}
+                            />
+                        </View>
+                        <View style={styles.mainMenuButtonView}>
+                            <Button
                                 onPress={this.updateRow}
                                 title="Edit"
                                 accessibilityLabel="See an informative alert"
-                        />
-                        <Button color="#F44336"
+                            />
+                        </View>
+                        <View style={styles.mainMenuButtonView}>
+                            <Button
                                 onPress={this.closeModal}
                                 title="Cancel"
                                 accessibilityLabel="See an informative alert"
-                        />
+                            />
+                        </View>
                     </View>
                 </Modal>
             </View>

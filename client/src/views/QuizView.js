@@ -15,15 +15,13 @@ export default class QuizView extends Component {
             jsonData: [],
             status: false,
             summaryStatus: false,
-            initialCount: 0
+            summary: 0
         };
-        // this.dataSource = new ListView.DataSource({
-        //     rowHasChanged: (r1, r2) => r1 !== r2
-        // });
+
     }
 
     startQuiz() {
-        var quizURL = 'http://192.168.0.102:8080/quiz';
+        var quizURL = 'http://192.168.0.100:8080/quiz';
         fetch(quizURL)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -41,7 +39,7 @@ export default class QuizView extends Component {
 
     checkWord() {
 
-        var quizURL = 'http://192.168.0.102:8080/quiz';
+        var quizURL = 'http://192.168.0.100:8080/quiz';
         fetch(quizURL, {
             method: 'POST',
             headers: {
@@ -57,25 +55,27 @@ export default class QuizView extends Component {
             .then((responseJson) => {
                 console.log(responseJson);
                 this.setState({isLoading: false, jsonData: responseJson});
+                if (this.state.jsonData.id === 1) {
+                    Alert.alert("Good job");
+                }
+                else {
+                    Alert.alert("Wrong answer");
+                }
             })
             .catch((error) => {
                 console.error(error);
             });
-        if (this.state.jsonData.id === 1) {
-            Alert.alert("Good job");
-        }
-        else {
-            Alert.alert("Wrong answer");
-        }
+
+        this.refs['input'].setNativeProps({text: ''});
     }
 
     getSummary() {
-        var quizURL = 'http://192.168.0.102:8080/summary';
+        var quizURL = 'http://192.168.0.100:8080/summary';
         fetch(quizURL)
-            .then((response) => response.json())
+            .then((response) => response)
             .then((responseJson) => {
                 console.log(responseJson);
-                this.setState({isLoading: false, initialCount: responseJson});
+                this.setState({isLoading: false, summary: responseJson._bodyText});
             })
             .catch((error) => {
                 console.error(error);
@@ -89,45 +89,58 @@ export default class QuizView extends Component {
         const {navigate} = this.props.navigation;
 
         return (
-            <View>
-                <Text style={styles.titleText}>Quiz</Text>
+            <View style={styles.container}>
                 {renderIf(this.state.status && !this.state.summaryStatus)(
                     <View>
+
                         <Text style={styles.quizWord}>
                             {this.state.jsonData.word}
                         </Text>
                         <TextInput ref={'input'}
-                                   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                                   style={styles.textInput}
                                    onChangeText={(description) => this.setState({description})}
                                    value={this.state.description}
                                    multiline={true}
                         />
+                        <View style={styles.mainMenuButtonView}>
+                            <Button
+                                onPress={() => this.checkWord()}
+                                title="Check"
+                                accessibilityLabel="See an informative alert"
+                            />
+                        </View>
+                        <View style={styles.mainMenuButtonView}>
+                            <Button
+                                onPress={() => this.getSummary()}
+                                title="finish"
+                                accessibilityLabel="See an informative alert"
+                            />
+                        </View>
+                    </View>
+                )}
+
+                {renderIf(!this.state.status && !this.state.summaryStatus)(
+                    <View>
+                        <Text style={styles.titleText}>Quiz</Text>
+                    <View style={styles.mainMenuButtonView}>
                         <Button
-                            onPress={() => this.checkWord()}
-                            title="Check"
-                            accessibilityLabel="See an informative alert"
-                        />
-                        <Button
-                            onPress={() => this.getSummary()}
-                            title="finish"
+                            onPress={() => this.startQuiz()}
+                            title="Start quiz"
                             accessibilityLabel="See an informative alert"
                         />
                     </View>
+                    </View>
                 )}
-                {renderIf(!this.state.status && !this.state.summaryStatus)(
-                    <Button
-                        onPress={() => this.startQuiz()}
-                        title="Start quiz"
-                        accessibilityLabel="See an informative alert"
-                    />
-                )}
+
                 {renderIf(this.state.summaryStatus)(
                     <View>
+                        <Text style={styles.titleText}>Summary</Text>
                         <Text style={styles.quizWord}>
-                             {this.state.initialCount} records.
+                            {this.state.summary}
                         </Text>
                     </View>
                 )}
+
             </View>
         )
     }
